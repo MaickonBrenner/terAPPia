@@ -60,32 +60,38 @@ class telaLoginState extends State<telaLogin1> {
                   width: 300, height: 300,
                 ),
                 
-                TextField(
-                  onChanged: (text) {
-                    user = text;
-                  }, 
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                      labelText: "Digite seu e-mail",
-                      filled: true,
-                      fillColor: Colors.white,
-                   ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (text) {
+                      user = text;
+                    }, 
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                        labelText: "Digite seu e-mail",
+                        filled: true,
+                        fillColor: Colors.white,
+                     ),
+                  ),
                 ),
         
-                TextField(
-                  onChanged: (text) {
-                    password = text;
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(60)),
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: "Digite sua senha",
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    onChanged: (text) {
+                      password = text;
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10.0)),
+                        filled: true,
+                        fillColor: Colors.white,
+                        labelText: "Digite sua senha",
+                      ),
+                  ),
                 ),
 
                 Padding(
@@ -123,8 +129,7 @@ https://pt.stackoverflow.com/questions/463662/flutter-como-alterar-o-tamanho-de-
 https://www.linkedin.com/pulse/como-colocar-imagem-em-flutter-caroline-souza/?originalSubdomain=pt
 https://docs.flutter.dev/cookbook/navigation/navigation-basics
 
-*/
-/* Tipos de Text:
+ Tipos de Text:
 decoration: InputDecoration(labelText: "Usuário")
 
 => Bordas arredondadas

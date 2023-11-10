@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:terappia/TelaInicial.dart';
-import 'LoginProfissional.dart';
-import 'LoginPaciente.dart';
 
 main() {
-  runApp(new telaBotao());
+  runApp(new telaLoginPaciente());
 }
 
-class telaBotao extends StatelessWidget {
+class telaLoginPaciente extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: telaBotaoState(),
+      home: telaLoginPaciente1(),
     );
   }
 }
 
-class telaBotaoState extends StatefulWidget {
+class telaLoginPaciente1 extends StatefulWidget {
   @override
-  State<telaBotaoState> createState() => telaBotao1State();
+  telaLoginPacienteState createState() {
+    return telaLoginPacienteState();
+  }
 }
 
-class telaBotao1State extends State<telaBotaoState> {
+class telaLoginPacienteState extends State<telaLoginPaciente1> {
   TelaInicial telaInicial = new TelaInicial();
-  telaLogin telalogin = new telaLogin();
-  telaLoginPaciente telaloginpaciente = new telaLoginPaciente();
   String user = "";
   String password = "";
 
@@ -31,16 +29,7 @@ class telaBotao1State extends State<telaBotaoState> {
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => telalogin),
-      );
-    });
-  }
-
-  void onLoginPaciente() {
-    setState(() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => telaloginpaciente),
+        MaterialPageRoute(builder: (context) => TelaInicial()),
       );
     });
   }
@@ -70,9 +59,17 @@ class telaBotao1State extends State<telaBotaoState> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                            child: Text("Sou profissional"),
-                            onPressed: onLogin,
+                          child: TextField(
+                            onChanged: (text) {
+                              user = text;
+                            },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              labelText: "Digite seu e-mail",
+                              filled: true,
+                              fillColor: Colors.white,
+                            ),
                           ),
                         ),
                         Padding(
@@ -88,14 +85,14 @@ class telaBotao1State extends State<telaBotaoState> {
                                   borderRadius: BorderRadius.circular(10.0)),
                               filled: true,
                               fillColor: Colors.white,
-                              labelText: "Digite sua senha",
+                              labelText: "paciente",
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(25.0),
                           child: ElevatedButton(
-                            onPressed: onLoginPaciente,
+                            onPressed: onLogin,
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(

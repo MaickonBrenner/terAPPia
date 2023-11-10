@@ -95,7 +95,7 @@ class _HomePageWidgetState extends State<TelaInicial> {
           backgroundColor: Colors.purple,
           automaticallyImplyLeading: false,
           title: Text(
-            'Nome do profissional',
+            'Bom dia, Nome!',
             style: TextStyle(
               fontFamily: 'Outfit',
               color: Colors.white,

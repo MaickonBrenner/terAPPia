@@ -1,24 +1,26 @@
+import 'package:flutter/services.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'CustomMarker.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
+import 'package:http/http.dart' as http;
 
-//adicionar outras classes: 
+class TelaInicial extends StatefulWidget {
+  const TelaInicial({Key? key}) : super(key: key);
 
-class TelaInicial extends StatelessWidget {
-/*
+  @override
+  _HomePageWidgetState createState() => _HomePageWidgetState();
+}
+
+class _HomePageWidgetState extends State<TelaInicial> {
   late final MapController mapController;
   late LocationData currentLocation;
   double? lat, long;
   Set<Marker> markers = {};
   List<LatLng> routPoints = [LatLng(52.05884, -1.345583)];
-  final Icon markerIcon = Icon(
-    Icons.pin_drop,
-    color: Colors.blue,
-    size: 40,
-  );
-
-  late String origem;
-  late String chegada;
+  final Icon markerIcon = Icon(Icons.pin_drop, color: Colors.blue, size: 40);
 
   @override
   void initState() {
@@ -38,7 +40,12 @@ class TelaInicial extends StatelessWidget {
   }
 
   void addMarker(LatLng point) async {
-    markers.clear();
+    /* final marker = CustomMarker(
+      point: point,
+      icon: markerIcon,
+    );
+    markers.add(marker);*/
+    //markers.clear();
     final marker = CustomMarker(
       point: point,
       icon: markerIcon,
@@ -51,7 +58,7 @@ class TelaInicial extends StatelessWidget {
     print(response.body);
     setState(() {
       markers.add(marker);
-      routPoints = [];
+      /* routPoints = [];
       var ruter =
           jsonDecode(response.body)['routes'][0]['geometry']['coordinates'];
       for (int i = 0; i < ruter.length; i++) {
@@ -62,55 +69,187 @@ class TelaInicial extends StatelessWidget {
         var long1 = reep.split(",");
         routPoints.add(LatLng(double.parse(lat1[1]), double.parse(long1[0])));
       }
-      print(routPoints);
+      print(routPoints);*/
     });
   }
-
-  void pressionar() {
-    print(origem);
-    print(chegada);
-  }*/
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 80.0,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color.fromRGBO(231, 254, 255, 1),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            print('FloatingActionButton pressed ...');
+          },
+          backgroundColor: Colors.purple,
+          elevation: 8,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 24,
+          ),
+        ),
+        appBar: AppBar(
+          backgroundColor: Colors.purple,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Nome do profissional',
+            style: TextStyle(
+              fontFamily: 'Outfit',
+              color: Colors.white,
+              fontSize: 22,
+            ),
+          ),
+          actions: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                "images/logoterappia.png",
+                width: 60,
+                height: 200,
+                fit: BoxFit.cover,
               ),
             ),
-            Stack(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: 460,
-                  width: 400,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                  margin: EdgeInsets.all(20),
+          ],
+          centerTitle: false,
+          elevation: 2,
+        ),
+        body: SafeArea(
+          top: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                width: 396,
+                height: 303,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                   child: FlutterMap(
                     options: MapOptions(
-                      center: LatLng(51.509364, -0.128928),
-                      zoom: 15.0,
-                      onTap: ((tapPoition, point) {
-                        print(point);
-                        //addMarker(point);
-                      })),
-                    /*mapController: MapController,
-                    children: [], */ 
+                        center: LatLng(51.509364, -0.128928),
+                        zoom: 15.0,
+                        onTap: ((tapPosition, point) {
+                          print(point);
+                          addMarker(point);
+                        })),
+                    mapController: mapController,
+                    children: [
+                      TileLayer(
+                        urlTemplate:
+                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      ),
+                      MarkerLayer(
+                        markers: markers.toList(),
+                      ),
+                      PolylineLayer(
+                        polylineCulling: false,
+                        polylines: [
+                          Polyline(
+                              points: routPoints,
+                              color: Colors.blueAccent,
+                              strokeWidth: 8.0)
+                        ],
+                      )
+                    ],
                   ),
-                )
-              ],
-            )
-          ],
-        ), 
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                child: Container(
+                  width: 355,
+                  height: 327,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      ListTile(
+                        title: Text('Title'),
+                        subtitle: Text(
+                          'Subtitle goes here...',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Title',
+                        ),
+                        subtitle: Text(
+                          'Subtitle goes here...',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Title',
+                        ),
+                        subtitle: Text(
+                          'Subtitle goes here...',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Title',
+                        ),
+                        subtitle: Text(
+                          'Subtitle goes here...',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ListTile(
+                        title: Text('Title'),
+                        subtitle: Text(
+                          'Subtitle goes here...',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
-
 }

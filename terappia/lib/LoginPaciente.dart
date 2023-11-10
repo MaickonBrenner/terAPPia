@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terappia/TelaInicial.dart';
+import 'main.dart';
 
 main() {
   runApp(new telaLoginPaciente());
@@ -22,6 +23,7 @@ class telaLoginPaciente1 extends StatefulWidget {
 
 class telaLoginPacienteState extends State<telaLoginPaciente1> {
   TelaInicial telaInicial = new TelaInicial();
+  telaBotao telabotao = new telaBotao();
   String user = "";
   String password = "";
 
@@ -42,10 +44,25 @@ class telaLoginPacienteState extends State<telaLoginPaciente1> {
           scaffoldBackgroundColor: Color.fromRGBO(231, 254, 255, 1),
         ),
         home: Scaffold(
-            /*appBar: AppBar(
-          title: Text("terAPPia")
-        ),*/
-
+            appBar: AppBar(
+              leading: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => telabotao),
+                  );
+                },
+                child: Icon(
+                  Icons.chevron_left_rounded,
+                  color: Colors.purpleAccent,
+                  size: 32,
+                ),
+              ),
+            ),
             body: Center(
                 child: Padding(
                     padding: EdgeInsets.all(16.0),
@@ -61,21 +78,6 @@ class telaLoginPacienteState extends State<telaLoginPaciente1> {
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
                             onChanged: (text) {
-                              user = text;
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              labelText: "Digite seu e-mail",
-                              filled: true,
-                              fillColor: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            onChanged: (text) {
                               password = text;
                             },
                             obscureText: true,
@@ -85,7 +87,7 @@ class telaLoginPacienteState extends State<telaLoginPaciente1> {
                                   borderRadius: BorderRadius.circular(10.0)),
                               filled: true,
                               fillColor: Colors.white,
-                              labelText: "paciente",
+                              labelText: "Digite sua chave de acesso",
                             ),
                           ),
                         ),
@@ -96,7 +98,7 @@ class telaLoginPacienteState extends State<telaLoginPaciente1> {
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderRadius: BorderRadius.circular(5.0),
                                     side: BorderSide(
                                         width: 3, color: Colors.purple)),
                               ),

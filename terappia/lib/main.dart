@@ -69,42 +69,35 @@ class telaBotao1State extends State<telaBotaoState> {
                           height: 300,
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: ElevatedButton(
-                            child: Text("Sou profissional"),
                             onPressed: onLogin,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            onChanged: (text) {
-                              password = text;
-                            },
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              filled: true,
-                              fillColor: Colors.white,
-                              labelText: "Digite sua senha",
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    side: BorderSide(
+                                        width: 3, color: Colors.purple)),
+                              ),
                             ),
+                            child: const Text("Sou profissional",
+                                style: TextStyle(fontSize: 25),
+                                selectionColor: Colors.purple),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(25.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: ElevatedButton(
                             onPressed: onLoginPaciente,
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderRadius: BorderRadius.circular(5.0),
                                     side: BorderSide(
                                         width: 3, color: Colors.purple)),
                               ),
                             ),
-                            child: const Text("LOGIN",
+                            child: const Text("  Sou paciente  ",
                                 style: TextStyle(fontSize: 25),
                                 selectionColor: Colors.purple),
                           ),

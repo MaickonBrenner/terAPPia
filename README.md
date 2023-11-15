@@ -10,11 +10,21 @@ Por isso, o nosso sistema tem como objetivo auxiliar na gestão de atendimentos 
 ## Desenvolvimento da Aplicação
 A aplicação foi desenvolvida em _Dart_ + _Flutter_ através do Visual Studio Code, com as orientações do Professor Belmondo R. A. Junior, na cadeira de **Desenvolvimento em Plataformas Móveis**, 3º Semestre do Curso de Ciências da Computação na Universidade de Fortaleza (UNIFOR).
 
+## Fases do Projeto
+- [x] Início
+- [x] Desenvolvimento
+- [x] Elaboração do Projeto + Pitch
+- [x] Criação de Telas no Flutter
+- [ ] Criação de Telas parte 2, (Paciente)
+- [ ] Implementação do Banco de Dados
+- [ ] Etapa Final
+- [ ] Apresentação do Projeto Final
+
 ## Desenvolvedores do Aplicativo
 * Samuel Lucas de Araujo Farias | [GitHub](https://github.com/slucas04)
 * Maickon Brenner Marques Brandão | [GitHub](https://github.com/MaickonBrenner)
 * Lucas Cardoso Xavier Santos | [GitHub](https://google.com)
-  
+
 ***
 
 ## Integrantes do Projeto

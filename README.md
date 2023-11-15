@@ -7,9 +7,6 @@ Com uma população idosa de mais de 30 milhões, quase 15% do país, no Brasil,
 
 Por isso, o nosso sistema tem como objetivo auxiliar na gestão de atendimentos domiciliares para profissionais da área da saúde e otimizar o tempo gasto com atividades que ainda são feitas de maneira manual, como: relatórios, financeiro, comunicação ou mesmo gerenciamento de rota.
 
-![Logo do Aplicativo: ](C:\Users\alber\Desktop\Projetos\GitHub\terAPPia\terappia\imageslogo.png) 
-
-
 ## Desenvolvimento da Aplicação
 A aplicação foi desenvolvida em _Dart_ + _Flutter_ através do Visual Studio Code, com as orientações do Professor Belmondo R. A. Junior, na cadeira de **Desenvolvimento em Plataformas Móveis**, 3º Semestre do Curso de Ciências da Computação na Universidade de Fortaleza (UNIFOR).
 
@@ -29,3 +26,5 @@ A aplicação foi desenvolvida em _Dart_ + _Flutter_ através do Visual Studio C
 * Carolina Cavalcante Aguiar- 2225371
 * Caio Victor Ferreira da Silva - 2010224
 * Maria Clara de Lima Naylor - 2224205
+
+  ![logoprofissional](https://github.com/MaickonBrenner/terAPPia/assets/125760593/2e31de7e-3e67-488d-a659-ca1fb2b5173e)

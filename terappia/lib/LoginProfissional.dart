@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'package:terappia/main.dart';
 
-main() {
-  runApp(new telaLogin());
-}
-
 class telaLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,6 +38,7 @@ class telaLoginState extends State<telaLogin1> {
         theme: ThemeData(
           primarySwatch: Colors.purple,
           scaffoldBackgroundColor: Color.fromRGBO(231, 254, 255, 1),
+          fontFamily: 'Montserrat',
         ),
         home: Scaffold(
             appBar: AppBar(
@@ -70,7 +67,7 @@ class telaLoginState extends State<telaLogin1> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          "images/logo.png",
+                          "images/logoprofissional.png",
                           width: 300,
                           height: 300,
                         ),
@@ -107,22 +104,26 @@ class telaLoginState extends State<telaLogin1> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(25.0),
-                          child: ElevatedButton(
-                            onPressed: onLogin,
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    side: BorderSide(
-                                        width: 3, color: Colors.purple)),
-                              ),
-                            ),
-                            child: const Text("LOGIN",
-                                style: TextStyle(fontSize: 25),
-                                selectionColor: Colors.purple),
-                          ),
-                        )
+                            padding: const EdgeInsets.all(25.0),
+                            child: SizedBox(
+                                width:
+                                    ((MediaQuery.of(context).size.width) / 2),
+                                height: 45,
+                                child: ElevatedButton(
+                                  onPressed: onLogin,
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          side: BorderSide(
+                                              width: 3, color: Colors.purple)),
+                                    ),
+                                  ),
+                                  child: const Text("LOGIN",
+                                      style: TextStyle(fontSize: 25),
+                                      selectionColor: Colors.purple),
+                                )))
                       ],
                     )))));
   }

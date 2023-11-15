@@ -6,6 +6,13 @@ import 'CustomMarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  runApp(new TelaInicial());
+}
 
 class TelaInicial extends StatefulWidget {
   const TelaInicial({Key? key}) : super(key: key);
@@ -27,6 +34,7 @@ class _HomePageWidgetState extends State<TelaInicial> {
     mapController = MapController();
     getCurrentLocation();
     super.initState();
+    FlutterNativeSplash.remove();
   }
 
   void getCurrentLocation() async {
@@ -97,7 +105,7 @@ class _HomePageWidgetState extends State<TelaInicial> {
           title: Text(
             'Bom dia, Nome!',
             style: TextStyle(
-              fontFamily: 'Outfit',
+              fontFamily: 'Montserrat',
               color: Colors.white,
               fontSize: 22,
             ),

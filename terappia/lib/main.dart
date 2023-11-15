@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'LoginProfissional.dart';
 import 'LoginPaciente.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 main() {
   runApp(new telaBotao());
@@ -51,6 +52,7 @@ class telaBotao1State extends State<telaBotaoState> {
         theme: ThemeData(
           primarySwatch: Colors.purple,
           scaffoldBackgroundColor: Color.fromRGBO(231, 254, 255, 1),
+          fontFamily: 'Montserrat',
         ),
         home: Scaffold(
             /*appBar: AppBar(
@@ -69,39 +71,49 @@ class telaBotao1State extends State<telaBotaoState> {
                           height: 300,
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ElevatedButton(
-                            onPressed: onLogin,
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    side: BorderSide(
-                                        width: 3, color: Colors.purple)),
-                              ),
-                            ),
-                            child: const Text("Sou profissional",
-                                style: TextStyle(fontSize: 25),
-                                selectionColor: Colors.purple),
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: SizedBox(
+                                width: ((MediaQuery.of(context).size.width) /
+                                    3 *
+                                    2),
+                                height: 45,
+                                child: ElevatedButton(
+                                  onPressed: onLogin,
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          side: BorderSide(
+                                              width: 3, color: Colors.purple)),
+                                    ),
+                                  ),
+                                  child: const Text("Sou profissional",
+                                      style: TextStyle(fontSize: 25),
+                                      selectionColor: Colors.purple),
+                                ))),
                         Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ElevatedButton(
-                            onPressed: onLoginPaciente,
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    side: BorderSide(
-                                        width: 3, color: Colors.purple)),
-                              ),
-                            ),
-                            child: const Text("  Sou paciente  ",
-                                style: TextStyle(fontSize: 25),
-                                selectionColor: Colors.purple),
-                          ),
-                        )
+                            padding: const EdgeInsets.all(10.0),
+                            child: SizedBox(
+                                width: ((MediaQuery.of(context).size.width) /
+                                    3 *
+                                    2),
+                                height: 45,
+                                child: ElevatedButton(
+                                  onPressed: onLogin,
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          side: BorderSide(
+                                              width: 3, color: Colors.purple)),
+                                    ),
+                                  ),
+                                  child: const Text("Sou paciente",
+                                      style: TextStyle(fontSize: 25),
+                                      selectionColor: Colors.purple),
+                                ))),
                       ],
                     )))));
   }

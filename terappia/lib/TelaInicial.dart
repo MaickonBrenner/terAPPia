@@ -7,6 +7,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'LoginProfissional.dart';
+import 'MenuItems.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -81,6 +84,17 @@ class _HomePageWidgetState extends State<TelaInicial> {
     });
   }
 
+telaLogin telalogin = new telaLogin();
+
+  void deslogar() {
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => telalogin),
+      );
+    });
+  } 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -109,8 +123,52 @@ class _HomePageWidgetState extends State<TelaInicial> {
               color: Colors.white,
               fontSize: 22,
             ),
-          ),
+          ), 
           actions: [
+            DropdownButtonHideUnderline(
+              child: DropdownButton2(
+                customButton: const Icon(
+                  Icons.list,
+                  size: 46,
+                  color: Colors.white,
+                ), items: [
+                  ...MenuItems.firstItems.map(
+                (item) => DropdownMenuItem<MenuItem>(
+                  value: item,
+                  child: MenuItems.buildItem(item),
+                ),
+              ),
+              const DropdownMenuItem<Divider>(enabled: false, child: Divider()),
+              ...MenuItems.secondItems.map(
+                (item) => DropdownMenuItem<MenuItem>(
+                  value: item,
+                  child: MenuItems.buildItem(item),
+                ),
+                ),
+              ],
+              onChanged: (value) {
+              MenuItems.onChanged(context, value! as MenuItem);
+             },
+              dropdownStyleData: DropdownStyleData(
+              width: 160,
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.purple,
+              ),
+              offset: const Offset(0, 8),
+            ),
+            menuItemStyleData: MenuItemStyleData(
+              customHeights: [
+                ...List<double>.filled(MenuItems.firstItems.length, 48),
+                8,
+                ...List<double>.filled(MenuItems.secondItems.length, 48),
+              ],
+              padding: const EdgeInsets.only(left: 16, right: 16),
+            ),
+              ),
+            ),
+
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(

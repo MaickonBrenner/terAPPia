@@ -83,7 +83,7 @@ class telaBotao1State extends State<telaBotaoState> {
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(5.0), //60.0 (Borda Redonda)
                                           side: BorderSide(
                                               width: 3, color: Colors.purple)),
                                     ),
@@ -100,7 +100,7 @@ class telaBotao1State extends State<telaBotaoState> {
                                     2),
                                 height: 45,
                                 child: ElevatedButton(
-                                  onPressed: onLogin,
+                                  onPressed: onLoginPaciente,
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(

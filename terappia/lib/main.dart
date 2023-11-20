@@ -3,8 +3,14 @@ import 'package:terappia/TelaInicial.dart';
 import 'LoginProfissional.dart';
 import 'LoginPaciente.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-main() {
+main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+    );
   runApp(new telaBotao());
 }
 

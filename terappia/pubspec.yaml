@@ -43,6 +43,9 @@ dependencies:
   geolocator: ^10.1.0
   flutter_native_splash: ^2.3.5
   dropdown_button2: ^2.3.8
+  firebase_core: ^2.22.0
+  flutterfire_cli: ^0.2.7
+  cloud_firestore: ^4.13.1
   
   
 dev_dependencies:

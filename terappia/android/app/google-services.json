@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "252750395319",
+    "project_id": "terappiachat",
+    "storage_bucket": "terappiachat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252750395319:android:3d9c23473fed09eba1da32",
+        "android_client_info": {
+          "package_name": "com.example.terappia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoVCfxRJlGVnvqI96_2vlQ5H6L45RNzrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

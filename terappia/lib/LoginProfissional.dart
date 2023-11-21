@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'package:terappia/main.dart';
@@ -11,6 +12,7 @@ class telaLogin extends StatelessWidget {
 }
 
 class telaLogin1 extends StatefulWidget {
+  const telaLogin1({Key? key}) : super(key: key);
   @override
   telaLoginState createState() {
     return telaLoginState();
@@ -20,16 +22,37 @@ class telaLogin1 extends StatefulWidget {
 class telaLoginState extends State<telaLogin1> {
   TelaInicial telaInicial = new TelaInicial();
   telaBotao telabotao = new telaBotao();
-  String user = "";
+  String email = "";
   String password = "";
 
-  void onLogin() {
-    setState(() {
+  TextEditingController emailcontroller = new TextEditingController();
+  TextEditingController senhacontroller = new TextEditingController();
+
+  final _formkey = GlobalKey<FormState>();
+
+  onLogin() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);          
       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => TelaInicial()),
-      );
-    });
+          context, MaterialPageRoute(builder: (context) => TelaInicial()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "Nenhum Usuário Encontrado com este Email",
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
+            )));
+      } else if (e.code == 'wrong-passoword') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "Senha errada",
+              style: TextStyle(fontSize: 18.0, color: Colors.black),
+            )));
+      }
+    }
   }
 
   @override
@@ -71,35 +94,55 @@ class telaLoginState extends State<telaLogin1> {
                           width: 300,
                           height: 300,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            onChanged: (text) {
-                              user = text;
-                            },
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              labelText: "Digite seu e-mail",
-                              filled: true,
-                              fillColor: Colors.white,
+                        Form(
+                          key: _formkey,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: emailcontroller,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Coloque o Email';
+                                }
+                                return null;
+                              },
+                              onChanged: (text) {
+                                email = text;
+                              },
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                  labelText: "Digite seu e-mail",
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  prefixIcon: Icon(Icons.mail_outline)),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            onChanged: (text) {
-                              password = text;
-                            },
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              filled: true,
-                              fillColor: Colors.white,
-                              labelText: "Digite sua senha",
+                        Form(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: senhacontroller,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Coloque a Senha';
+                                }
+                                return null;
+                              },
+                              onChanged: (text) {
+                                password = text;
+                              },
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  labelText: "Digite sua senha",
+                                  prefixIcon: Icon(Icons.password)),
                             ),
                           ),
                         ),
@@ -109,20 +152,32 @@ class telaLoginState extends State<telaLogin1> {
                                 width:
                                     ((MediaQuery.of(context).size.width) / 2),
                                 height: 45,
-                                child: ElevatedButton(
-                                  onPressed: onLogin,
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                          side: BorderSide(
-                                              width: 3, color: Colors.purple)),
+                                child: GestureDetector(
+                                  onTap:(){
+                                    if(_formkey.currentState!.validate()){
+                                      setState(() {
+                                        email = emailcontroller.text;
+                                        password= senhacontroller.text;
+                                      });
+                                    }
+                                    onLogin();
+                                  }, // Defina a função que deseja chamar no toque
+                                  child: Container(
+                                    decoration: 
+                                    BoxDecoration(
+                                      color: Colors.purple,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                          width: 3, color: Colors.purple),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "LOGIN",
+                                        style: TextStyle(fontSize: 25),
+                                      ),
                                     ),
                                   ),
-                                  child: const Text("LOGIN",
-                                      style: TextStyle(fontSize: 25),
-                                      selectionColor: Colors.purple),
                                 )))
                       ],
                     )))));

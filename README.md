@@ -8,7 +8,7 @@ Com uma população idosa de mais de 30 milhões, quase 15% do país, no Brasil,
 Por isso, o nosso sistema tem como objetivo auxiliar na gestão de atendimentos domiciliares para profissionais da área da saúde e otimizar o tempo gasto com atividades que ainda são feitas de maneira manual, como: relatórios, financeiro, comunicação ou mesmo gerenciamento de rota.
 
 ## Desenvolvimento da Aplicação
-A aplicação foi desenvolvida em _Dart_ + _Flutter_ através do Visual Studio Code, com as orientações do Professor Belmondo R. A. Junior, na cadeira de **Desenvolvimento em Plataformas Móveis**, 3º Semestre do Curso de Ciências da Computação na Universidade de Fortaleza (UNIFOR).
+A aplicação foi desenvolvida na linguagem _Dart_ + o SDK _Flutter_ através do Visual Studio Code, com as orientações do Professor Belmondo R. A. Junior, na cadeira de **Desenvolvimento em Plataformas Móveis**, 3º Semestre do Curso de Ciências da Computação na Universidade de Fortaleza (UNIFOR).
 
 ## Fases do Projeto
 - [x] Início
@@ -30,7 +30,7 @@ A aplicação foi desenvolvida em _Dart_ + _Flutter_ através do Visual Studio C
 ## Integrantes do Projeto
 * Luis Eduardo Queiroz - 2218934
 * Samuel Lucas de Araujo Farias - 2214673
-* Maickon Brenner Marques Brandão - 222403
+* Maickon Brenner Marques Brandão - 2224203
 * Lucas Cardoso Xavier Santos - 2218942
 * Igor Gomes Ximenes - 2217665
 * Carolina Cavalcante Aguiar- 2225371

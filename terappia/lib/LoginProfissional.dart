@@ -5,7 +5,7 @@ import 'package:terappia/main.dart';
 
 class telaLogin extends StatelessWidget {
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: telaLogin1(),
     );
   }
@@ -76,7 +76,7 @@ class telaLoginState extends State<telaLogin1> {
                     MaterialPageRoute(builder: (context) => telabotao),
                   );
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.chevron_left_rounded,
                   color: Colors.purpleAccent,
                   size: 32,
@@ -85,7 +85,7 @@ class telaLoginState extends State<telaLogin1> {
             ),
             body: Center(
                 child: Padding(
-                    padding: EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -116,7 +116,7 @@ class telaLoginState extends State<telaLogin1> {
                                   labelText: "Digite seu e-mail",
                                   filled: true,
                                   fillColor: Colors.white,
-                                  prefixIcon: Icon(Icons.mail_outline)),
+                                  prefixIcon: const Icon(Icons.mail_outline)),
                             ),
                           ),
                         ),
@@ -137,12 +137,12 @@ class telaLoginState extends State<telaLogin1> {
                               obscureText: true,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white),
+                                      borderSide: const BorderSide(color: Colors.white),
                                       borderRadius: BorderRadius.circular(10.0)),
                                   filled: true,
                                   fillColor: Colors.white,
                                   labelText: "Digite sua senha",
-                                  prefixIcon: Icon(Icons.password)),
+                                  prefixIcon: const Icon(Icons.password)),
                             ),
                           ),
                         ),
@@ -170,11 +170,11 @@ class telaLoginState extends State<telaLogin1> {
                                       border: Border.all(
                                           width: 3, color: Colors.purple),
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8.0),
                                       child: Text(
                                         "LOGIN",
-                                        style: TextStyle(fontSize: 25),
+                                        style: TextStyle(fontSize: 25, )
                                       ),
                                     ),
                                   ),

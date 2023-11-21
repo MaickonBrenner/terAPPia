@@ -1,6 +1,8 @@
 import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:terappia/calendar.dart';
+import 'package:terappia/chathome.dart';
+import 'package:terappia/chatpage.dart';
 import 'LoginProfissional.dart';
 
 class MenuItem {
@@ -45,10 +47,18 @@ abstract class MenuItems {
   static void onChanged(BuildContext context, MenuItem item) {
     switch (item) {
       case MenuItems.home:
-        //Do something
+        ChatHome chatHome = new ChatHome();
+        Navigator.push(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => chatHome),
+        );
         break;
       case MenuItems.settings:
-        //Do something
+        ChatPage chatPage = new ChatPage();
+        Navigator.push(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => chatPage),
+          );
         break;
       case MenuItems.share:
         Calendario calendario = new Calendario();

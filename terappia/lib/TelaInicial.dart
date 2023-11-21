@@ -437,7 +437,7 @@ telaLogin telalogin = new telaLogin();
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: AutoSizeText(
-                  "brightness $index",
+                  "Botão $index",
                   maxLines: 1,
                   style: TextStyle(color: Colors.white),
                   group: autoSizeGroup,

@@ -162,19 +162,22 @@ class telaLoginState extends State<telaLogin1> {
                                     }
                                     onLogin();
                                   }, // Defina a função que deseja chamar no toque
-                                  child: Container(
-                                    decoration: 
-                                    BoxDecoration(
-                                      color: Colors.purple,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      border: Border.all(
-                                          width: 3, color: Colors.purple),
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "LOGIN",
-                                        style: TextStyle(fontSize: 25, )
+                                  child: Center(
+                                    child: Container(
+                                      decoration: 
+                                      BoxDecoration(
+                                        color: Colors.purple,
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        border: Border.all(
+                                            width: 3, color: Colors.purple),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                          "LOGIN",
+                                          style: 
+                                          TextStyle(fontSize: 25, color: Colors.white,)
+                                        ),
                                       ),
                                     ),
                                   ),

@@ -2,6 +2,8 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:terappia/calendar.dart';
+import 'package:terappia/chathome.dart';
 import 'CustomMarker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
@@ -176,6 +178,32 @@ class _HomePageWidgetState extends State<TelaInicial>
     });
   }
 
+
+  void mudaTela(int index){
+    switch(index) {
+      case 0: //Chat
+        ChatHome chatHome = new ChatHome();
+        Navigator.push(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => chatHome),
+        );
+      break;
+      case 1: // calendário
+        Calendario calendario = new Calendario();
+        Navigator.push(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => calendario),
+        );
+        break;
+    }
+
+    print(index);
+    setState(() => 
+          _bottomNavIndex = index
+    );
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -446,7 +474,9 @@ class _HomePageWidgetState extends State<TelaInicial>
           gapLocation: GapLocation.center,
           leftCornerRadius: 32,
           rightCornerRadius: 32,
-          onTap: (index) => setState(() => _bottomNavIndex = index),
+          onTap:(index) {
+            mudaTela(index);
+          },
           hideAnimationController: _hideBottomBarAnimationController,
           shadow: const BoxShadow(
               offset: Offset(0, 1),

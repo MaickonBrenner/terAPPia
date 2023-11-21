@@ -31,7 +31,8 @@ class TelaInicial extends StatefulWidget {
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<TelaInicial> with TickerProviderStateMixin {
+class _HomePageWidgetState extends State<TelaInicial>
+    with TickerProviderStateMixin {
   late final MapController mapController;
   late LocationData currentLocation;
   double? lat, long;
@@ -99,7 +100,6 @@ class _HomePageWidgetState extends State<TelaInicial> with TickerProviderStateMi
       Duration(seconds: 1),
       () => _borderRadiusAnimationController.forward(),
     );
-
   }
 
   bool onScrollNotification(ScrollNotification notification) {
@@ -120,7 +120,6 @@ class _HomePageWidgetState extends State<TelaInicial> with TickerProviderStateMi
     }
     return false;
   }
-
 
   void getCurrentLocation() async {
     var location = Location();
@@ -166,7 +165,7 @@ class _HomePageWidgetState extends State<TelaInicial> with TickerProviderStateMi
     });
   }
 
-telaLogin telalogin = new telaLogin();
+  telaLogin telalogin = new telaLogin();
 
   void deslogar() {
     setState(() {
@@ -175,7 +174,7 @@ telaLogin telalogin = new telaLogin();
         MaterialPageRoute(builder: (context) => telalogin),
       );
     });
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -205,8 +204,7 @@ telaLogin telalogin = new telaLogin();
               color: Colors.white,
               fontSize: 22,
             ),
-          ), 
-          
+          ),
           actions: [
             DropdownButtonHideUnderline(
               child: DropdownButton2(
@@ -214,44 +212,45 @@ telaLogin telalogin = new telaLogin();
                   Icons.list,
                   size: 46,
                   color: Colors.white,
-                ), items: [
+                ),
+                items: [
                   ...MenuItems.firstItems.map(
-                (item) => DropdownMenuItem<MenuItem>(
-                  value: item,
-                  child: MenuItems.buildItem(item),
+                    (item) => DropdownMenuItem<MenuItem>(
+                      value: item,
+                      child: MenuItems.buildItem(item),
+                    ),
+                  ),
+                  const DropdownMenuItem<Divider>(
+                      enabled: false, child: Divider()),
+                  ...MenuItems.secondItems.map(
+                    (item) => DropdownMenuItem<MenuItem>(
+                      value: item,
+                      child: MenuItems.buildItem(item),
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  MenuItems.onChanged(context, value! as MenuItem);
+                },
+                dropdownStyleData: DropdownStyleData(
+                  width: 160,
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.purple,
+                  ),
+                  offset: const Offset(0, 8),
+                ),
+                menuItemStyleData: MenuItemStyleData(
+                  customHeights: [
+                    ...List<double>.filled(MenuItems.firstItems.length, 48),
+                    8,
+                    ...List<double>.filled(MenuItems.secondItems.length, 48),
+                  ],
+                  padding: const EdgeInsets.only(left: 16, right: 16),
                 ),
               ),
-              const DropdownMenuItem<Divider>(enabled: false, child: Divider()),
-              ...MenuItems.secondItems.map(
-                (item) => DropdownMenuItem<MenuItem>(
-                  value: item,
-                  child: MenuItems.buildItem(item),
-                ),
-                ),
-              ],
-              onChanged: (value) {
-              MenuItems.onChanged(context, value! as MenuItem);
-             },
-              dropdownStyleData: DropdownStyleData(
-              width: 160,
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: Colors.purple,
-              ),
-              offset: const Offset(0, 8),
             ),
-            menuItemStyleData: MenuItemStyleData(
-              customHeights: [
-                ...List<double>.filled(MenuItems.firstItems.length, 48),
-                8,
-                ...List<double>.filled(MenuItems.secondItems.length, 48),
-              ],
-              padding: const EdgeInsets.only(left: 16, right: 16),
-            ),
-              ),
-            ),
-
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
@@ -265,18 +264,15 @@ telaLogin telalogin = new telaLogin();
           centerTitle: false,
           elevation: 2,
         ),
-        
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                width: 396,
-                height: 303,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
+                width: ((MediaQuery.of(context).size.width) / 100 * 95),
+                height: ((MediaQuery.of(context).size.height / 100 * 40)),
+                decoration: BoxDecoration(),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                   child: FlutterMap(
@@ -312,11 +308,8 @@ telaLogin telalogin = new telaLogin();
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                 child: Container(
-                  width: 355,
-                  height: 327,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
+                  width: ((MediaQuery.of(context).size.width) / 100 * 95),
+                  height: ((MediaQuery.of(context).size.height / 100 * 40)),
                   child: ListView(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
@@ -399,71 +392,68 @@ telaLogin telalogin = new telaLogin();
             ],
           ),
         ),
-        
-       /* NotificationListener<ScrollNotification>(
+
+        /* NotificationListener<ScrollNotification>(
         onNotification: onScrollNotification,
         child: NavigationScreen(iconList[_bottomNavIndex]),
       ),*/
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple,
-        child: const Icon(
-          Icons.people,
-          color: Colors.white,
-           
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.purple,
+          child: const Icon(
+            Icons.people,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            _fabAnimationController.reset();
+            _borderRadiusAnimationController.reset();
+            _borderRadiusAnimationController.forward();
+            _fabAnimationController.forward();
+          },
         ),
-        onPressed: () {
-          _fabAnimationController.reset();
-          _borderRadiusAnimationController.reset();
-          _borderRadiusAnimationController.forward();
-          _fabAnimationController.forward();
-        },
-      ),
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-        itemCount: iconList.length,
-        tabBuilder: (int index, bool isActive) {
-          //final color = isActive ? colors.activeNavigationBarColor : colors.notActiveNavigationBarColor;
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                iconList[index],
-                size: 24,
-                color: Colors.white,
-              ),
-              const SizedBox(height: 4),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: AutoSizeText(
-                  "Botão $index",
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.white),
-                  group: autoSizeGroup,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+          itemCount: iconList.length,
+          tabBuilder: (int index, bool isActive) {
+            //final color = isActive ? colors.activeNavigationBarColor : colors.notActiveNavigationBarColor;
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  iconList[index],
+                  size: 24,
+                  color: Colors.white,
                 ),
-              )
-            ],
-          );
-        },
-        backgroundColor: Colors.purple,
-        activeIndex: _bottomNavIndex,
-        splashColor: Colors.white,
-        notchAndCornersAnimation: borderRadiusAnimation,
-        splashSpeedInMilliseconds: 300,
-        notchSmoothness: NotchSmoothness.defaultEdge,
-        gapLocation: GapLocation.center,
-        leftCornerRadius: 32,
-        rightCornerRadius: 32,
-        onTap: (index) => setState(() => _bottomNavIndex = index),
-        hideAnimationController: _hideBottomBarAnimationController,
-        shadow: const BoxShadow(
-          offset: Offset(0, 1),
-          blurRadius: 12,
-          spreadRadius: 0.5,
-          color: Colors.white
+                const SizedBox(height: 4),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: AutoSizeText(
+                    "Botão $index",
+                    maxLines: 1,
+                    style: TextStyle(color: Colors.white),
+                    group: autoSizeGroup,
+                  ),
+                )
+              ],
+            );
+          },
+          backgroundColor: Colors.purple,
+          activeIndex: _bottomNavIndex,
+          splashColor: Colors.white,
+          notchAndCornersAnimation: borderRadiusAnimation,
+          splashSpeedInMilliseconds: 300,
+          notchSmoothness: NotchSmoothness.defaultEdge,
+          gapLocation: GapLocation.center,
+          leftCornerRadius: 32,
+          rightCornerRadius: 32,
+          onTap: (index) => setState(() => _bottomNavIndex = index),
+          hideAnimationController: _hideBottomBarAnimationController,
+          shadow: const BoxShadow(
+              offset: Offset(0, 1),
+              blurRadius: 12,
+              spreadRadius: 0.5,
+              color: Colors.white),
         ),
-      ),
       ),
     );
   }

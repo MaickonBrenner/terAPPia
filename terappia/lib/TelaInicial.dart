@@ -10,6 +10,13 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'LoginProfissional.dart';
 import 'MenuItems.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'dart:async';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:circular_reveal_animation/circular_reveal_animation.dart';
+import 'package:flutter/rendering.dart';
+import 'package:terappia/NavigationScreen.dart';
 
 main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +31,7 @@ class TelaInicial extends StatefulWidget {
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
-class _HomePageWidgetState extends State<TelaInicial> {
+class _HomePageWidgetState extends State<TelaInicial> with TickerProviderStateMixin {
   late final MapController mapController;
   late LocationData currentLocation;
   double? lat, long;
@@ -32,13 +39,88 @@ class _HomePageWidgetState extends State<TelaInicial> {
   List<LatLng> routPoints = [LatLng(52.05884, -1.345583)];
   final Icon markerIcon = Icon(Icons.pin_drop, color: Colors.blue, size: 40);
 
+  final autoSizeGroup = AutoSizeGroup();
+  var _bottomNavIndex = 0; //default index of a first screen
+
+  late AnimationController _fabAnimationController;
+  late AnimationController _borderRadiusAnimationController;
+  late Animation<double> fabAnimation;
+  late Animation<double> borderRadiusAnimation;
+  late CurvedAnimation fabCurve;
+  late CurvedAnimation borderRadiusCurve;
+  late AnimationController _hideBottomBarAnimationController;
+
+  final iconList = <IconData>[
+    Icons.chat,
+    Icons.calendar_month,
+    Icons.attach_money_rounded,
+    Icons.route,
+  ];
+
   @override
   void initState() {
     mapController = MapController();
     getCurrentLocation();
     super.initState();
     FlutterNativeSplash.remove();
+
+    _fabAnimationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _borderRadiusAnimationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    fabCurve = CurvedAnimation(
+      parent: _fabAnimationController,
+      curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+    );
+    borderRadiusCurve = CurvedAnimation(
+      parent: _borderRadiusAnimationController,
+      curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+    );
+
+    fabAnimation = Tween<double>(begin: 0, end: 1).animate(fabCurve);
+    borderRadiusAnimation = Tween<double>(begin: 0, end: 1).animate(
+      borderRadiusCurve,
+    );
+
+    _hideBottomBarAnimationController = AnimationController(
+      duration: Duration(milliseconds: 200),
+      vsync: this,
+    );
+
+    Future.delayed(
+      Duration(seconds: 1),
+      () => _fabAnimationController.forward(),
+    );
+    Future.delayed(
+      Duration(seconds: 1),
+      () => _borderRadiusAnimationController.forward(),
+    );
+
   }
+
+  bool onScrollNotification(ScrollNotification notification) {
+    if (notification is UserScrollNotification &&
+        notification.metrics.axis == Axis.vertical) {
+      switch (notification.direction) {
+        case ScrollDirection.forward:
+          _hideBottomBarAnimationController.reverse();
+          _fabAnimationController.forward(from: 0);
+          break;
+        case ScrollDirection.reverse:
+          _hideBottomBarAnimationController.forward();
+          _fabAnimationController.reverse(from: 1);
+          break;
+        case ScrollDirection.idle:
+          break;
+      }
+    }
+    return false;
+  }
+
 
   void getCurrentLocation() async {
     var location = Location();
@@ -101,18 +183,18 @@ telaLogin telalogin = new telaLogin();
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromRGBO(231, 254, 255, 1),
-        floatingActionButton: FloatingActionButton(
+        /*floatingActionButton: FloatingActionButton(
           onPressed: () {
             print('FloatingActionButton pressed ...');
           },
           backgroundColor: Colors.purple,
           elevation: 8,
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
             size: 24,
           ),
-        ),
+        ),*/
         appBar: AppBar(
           backgroundColor: Colors.purple,
           automaticallyImplyLeading: false,
@@ -124,6 +206,7 @@ telaLogin telalogin = new telaLogin();
               fontSize: 22,
             ),
           ), 
+          
           actions: [
             DropdownButtonHideUnderline(
               child: DropdownButton2(
@@ -182,6 +265,7 @@ telaLogin telalogin = new telaLogin();
           centerTitle: false,
           elevation: 2,
         ),
+        
         body: SafeArea(
           top: true,
           child: Column(
@@ -315,6 +399,71 @@ telaLogin telalogin = new telaLogin();
             ],
           ),
         ),
+        
+       /* NotificationListener<ScrollNotification>(
+        onNotification: onScrollNotification,
+        child: NavigationScreen(iconList[_bottomNavIndex]),
+      ),*/
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
+        child: const Icon(
+          Icons.people,
+          color: Colors.white,
+           
+        ),
+        onPressed: () {
+          _fabAnimationController.reset();
+          _borderRadiusAnimationController.reset();
+          _borderRadiusAnimationController.forward();
+          _fabAnimationController.forward();
+        },
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        itemCount: iconList.length,
+        tabBuilder: (int index, bool isActive) {
+          //final color = isActive ? colors.activeNavigationBarColor : colors.notActiveNavigationBarColor;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                iconList[index],
+                size: 24,
+                color: Colors.white,
+              ),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: AutoSizeText(
+                  "brightness $index",
+                  maxLines: 1,
+                  style: TextStyle(color: Colors.white),
+                  group: autoSizeGroup,
+                ),
+              )
+            ],
+          );
+        },
+        backgroundColor: Colors.purple,
+        activeIndex: _bottomNavIndex,
+        splashColor: Colors.white,
+        notchAndCornersAnimation: borderRadiusAnimation,
+        splashSpeedInMilliseconds: 300,
+        notchSmoothness: NotchSmoothness.defaultEdge,
+        gapLocation: GapLocation.center,
+        leftCornerRadius: 32,
+        rightCornerRadius: 32,
+        onTap: (index) => setState(() => _bottomNavIndex = index),
+        hideAnimationController: _hideBottomBarAnimationController,
+        shadow: const BoxShadow(
+          offset: Offset(0, 1),
+          blurRadius: 12,
+          spreadRadius: 0.5,
+          color: Colors.white
+        ),
+      ),
       ),
     );
   }

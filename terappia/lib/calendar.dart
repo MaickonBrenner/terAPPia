@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:terappia/TelaInicial.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,23 +8,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Calendário de Pacientes',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        scaffoldBackgroundColor: Color.fromRGBO(231, 254, 255, 1),
       ),
-      home: const MyHomePage(),
+      home: const Calendario(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Calendario extends StatefulWidget {
+  const Calendario({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Calendario> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<Calendario> {
   late DateTime _focusedDay;
   late DateTime _firstDay;
   late DateTime _lastDay;
@@ -41,10 +42,32 @@ class _MyHomePageState extends State<MyHomePage> {
     _calendarFormat = CalendarFormat.month;
   }
 
+  TelaInicial telaInicial = new TelaInicial();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calendar App')),
+            appBar: AppBar(
+              backgroundColor: Colors.purple,
+              title: const Text('Calendário de Pacientes'),
+              leading: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => telaInicial),
+                  );
+                },
+                child: Icon(
+                  Icons.chevron_left_rounded,
+                  color: Colors.purpleAccent,
+                  size: 32,
+                ),
+              ),
+      ),
       body: TableCalendar(
         calendarFormat: _calendarFormat,
         onFormatChanged: (format) {
@@ -69,11 +92,11 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         calendarStyle: const CalendarStyle(
           weekendTextStyle: TextStyle(
-            color: Colors.red,
+            color: Colors.purpleAccent,
           ),
           selectedDecoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            color: Colors.red,
+            color: Colors.purple,
           ),
         ),
         calendarBuilders: CalendarBuilders(

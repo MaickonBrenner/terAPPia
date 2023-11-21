@@ -1,5 +1,6 @@
 import 'dart:js';
 import 'package:flutter/material.dart';
+import 'package:terappia/calendar.dart';
 import 'LoginProfissional.dart';
 
 class MenuItem {
@@ -50,7 +51,11 @@ abstract class MenuItems {
         //Do something
         break;
       case MenuItems.share:
-        //Do something
+        Calendario calendario = new Calendario();
+        Navigator.push(
+          context as BuildContext,
+          MaterialPageRoute(builder: (context) => calendario),
+        );
         break;
       case MenuItems.logout:
       telaLogin telalogin = new telaLogin();

@@ -23,7 +23,7 @@ A aplicação foi desenvolvida na linguagem _Dart_ + o SDK _Flutter_ através do
 ## Desenvolvedores do Aplicativo
 * Samuel Lucas de Araujo Farias | [GitHub](https://github.com/slucas04)
 * Maickon Brenner Marques Brandão | [GitHub](https://github.com/MaickonBrenner)
-* Lucas Cardoso Xavier Santos | [GitHub](https://google.com)
+* Lucas Cardoso Xavier Santos | [GitHub](https://github.com/Luccs3003)
 
 ***
 

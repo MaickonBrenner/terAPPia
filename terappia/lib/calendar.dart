@@ -1,10 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'package:terappia/chathome.dart';
+import 'package:flutter/rendering.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -32,6 +32,7 @@ class Calendario extends StatefulWidget {
 class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
   final autoSizeGroup = AutoSizeGroup();
   var _bottomNavIndex = 0; //default index of a first screen
+  List<dynamic>? _selectedEvents;
 
   late AnimationController _fabAnimationController;
   late AnimationController _borderRadiusAnimationController;
@@ -45,6 +46,7 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
   late DateTime _lastDay;
   late DateTime _selectedDay;
   late CalendarFormat _calendarFormat;
+  late Map<DateTime, List<dynamic>> _events;
 
   final iconList = <IconData>[
     Icons.people,
@@ -52,6 +54,7 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
     Icons.attach_money_rounded,
     Icons.route,
   ];
+  
 
   void mudaTela(int index) {
     switch (index) {
@@ -79,6 +82,7 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _events = {};
     _focusedDay = DateTime.now();
     _firstDay = DateTime.now().subtract(const Duration(days: 1000));
     _lastDay = DateTime.now().add(const Duration(days: 1000));
@@ -139,7 +143,38 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
     return false;
   }
 
-  TelaInicial telaInicial = new TelaInicial();
+  Future<void> _showAddEventDialog(DateTime selectedDay) async {
+    String newEvent = '';
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Adicionar Evento'),
+          content: TextField(
+            onChanged: (value) {
+              newEvent = value;
+            },
+            decoration: InputDecoration(labelText: 'Evento'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  final eventsList = _events[selectedDay] ?? [];
+                  eventsList.add(newEvent);
+                  _events[selectedDay] = eventsList;
+                  _selectedEvents = _events[selectedDay];
+                });
+                Navigator.of(context).pop(); // Fecha a janela de diálogo
+              },
+              child: Text('Adicionar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,61 +184,68 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.purple,
       ),
-      body: TableCalendar(
-        calendarFormat: _calendarFormat,
-        onFormatChanged: (format) {
-          setState(() {
-            _calendarFormat = format;
-          });
-        },
-        focusedDay: _focusedDay,
-        firstDay: _firstDay,
-        lastDay: _lastDay,
-        onPageChanged: (focusedDay) {
-          setState(() {
-            _focusedDay = focusedDay;
-          });
-        },
-        selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
-        onDaySelected: (selectedDay, focusedDay) {
-          setState(() {
-            _selectedDay = selectedDay;
-            _focusedDay = focusedDay;
-          });
-        },
-        calendarStyle: const CalendarStyle(
-          weekendTextStyle: TextStyle(
-            color: Colors.purpleAccent,
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              _showAddEventDialog(_selectedDay);
+            },
+            child: Text("Adicionar Evento"),
           ),
-          selectedDecoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: Colors.purple,
+          TableCalendar(
+            calendarFormat: _calendarFormat,
+            onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            },
+            focusedDay: _focusedDay,
+            firstDay: _firstDay,
+            lastDay: _lastDay,
+            onPageChanged: (focusedDay) {
+              setState(() {
+                _focusedDay = focusedDay;
+              });
+            },
+            selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay;
+                _selectedEvents = _events[_selectedDay];
+              });
+            },
+            calendarStyle: const CalendarStyle(
+              weekendTextStyle: TextStyle(
+                color: Colors.purpleAccent,
+              ),
+              selectedDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Colors.purple,
+              ),
+            ),
+            calendarBuilders: CalendarBuilders(
+              headerTitleBuilder: (context, day) {
+                return Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(day.toString()),
+                );
+              },
+            ),
           ),
-        ),
-        calendarBuilders: CalendarBuilders(
-          headerTitleBuilder: (context, day) {
-            return Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(day.toString()),
-            );
-          },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple,
-        child: const Icon(
-          Icons.calendar_month,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          _fabAnimationController.reset();
-          _borderRadiusAnimationController.reset();
-          _borderRadiusAnimationController.forward();
-          _fabAnimationController.forward();
-        },
+          if (_selectedEvents != null)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _selectedEvents!
+                  .map((event) => ListTile(
+                        title: Text(event.toString()),
+                      ))
+                  .toList(),
+            )
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+            bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         itemCount: iconList.length,
         tabBuilder: (int index, bool isActive) {
           //final color = isActive ? colors.activeNavigationBarColor : colors.notActiveNavigationBarColor;
@@ -243,10 +285,11 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
         },
         hideAnimationController: _hideBottomBarAnimationController,
         shadow: const BoxShadow(
-            offset: Offset(0, 1),
-            blurRadius: 12,
-            spreadRadius: 0.5,
-            color: Colors.white),
+          offset: Offset(0, 1),
+          blurRadius: 12,
+          spreadRadius: 0.5,
+          color: Colors.white,
+        ),
       ),
     );
   }

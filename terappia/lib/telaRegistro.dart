@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'package:terappia/main.dart';
+import 'package:terappia/services/database.dart';
 
 class telaRegistro extends StatefulWidget {
   const telaRegistro({Key? key}) : super(key: key);
@@ -28,6 +30,15 @@ class _telaRegistroState extends State<telaRegistro> {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
+        String Id = randomAlphaNumeric(10);
+        Map<String, dynamic> userInfoMap = {
+          "Nome": namecontroller.text,
+          "Email": emailcontroller.text,
+          "Username": emailcontroller.text.replaceAll("@gmail.com", ""),
+          "Id": Id,
+        };
+        await DatabaseMethods().addUserDetails(userInfoMap, Id);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
@@ -191,6 +202,7 @@ class _telaRegistroState extends State<telaRegistro> {
                       onTap: () {
                         if (_formkey.currentState!.validate()) {
                           setState(() {
+                            name = namecontroller.text;
                             email = emailcontroller.text;
                             password = passwordcontroller.text;
                           });
@@ -208,7 +220,8 @@ class _telaRegistroState extends State<telaRegistro> {
                             padding: EdgeInsets.all(8.0),
                             child: Text(
                               "Registrar",
-                              style: TextStyle(fontSize: 25, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 25, color: Colors.white),
                             ),
                           ),
                         ),

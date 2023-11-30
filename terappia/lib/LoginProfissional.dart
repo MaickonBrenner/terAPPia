@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'package:terappia/main.dart';
+import 'package:terappia/telaRegistro.dart';
 
 class telaLogin extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -26,14 +27,14 @@ class telaLoginState extends State<telaLogin1> {
   String password = "";
 
   TextEditingController emailcontroller = new TextEditingController();
-  TextEditingController senhacontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
 
   onLogin() async {
     try {
       await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);          
+          .signInWithEmailAndPassword(email: email, password: password);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => TelaInicial()));
     } on FirebaseAuthException catch (e) {
@@ -124,7 +125,7 @@ class telaLoginState extends State<telaLogin1> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: TextFormField(
-                              controller: senhacontroller,
+                              controller: passwordcontroller,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Coloque a Senha';
@@ -146,74 +147,57 @@ class telaLoginState extends State<telaLogin1> {
                             ),
                           ),
                         ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => telaRegistro()),
+                            );
+                          },
+                          child: Text(
+                            "Ainda não tem uma conta?",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.purple,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
                         Padding(
-                            padding: const EdgeInsets.all(25.0),
-                            child: SizedBox(
-                                width:
-                                    ((MediaQuery.of(context).size.width) / 2),
-                                height: 45,
-                                child: GestureDetector(
-                                  onTap:(){
-                                    if(_formkey.currentState!.validate()){
-                                      setState(() {
-                                        email = emailcontroller.text;
-                                        password= senhacontroller.text;
-                                      });
-                                    }
-                                    onLogin();
-                                  }, // Defina a função que deseja chamar no toque
-                                  child: Center(
-                                    child: Container(
-                                      decoration: 
-                                      BoxDecoration(
-                                        color: Colors.purple,
-                                        borderRadius: BorderRadius.circular(5.0),
-                                        border: Border.all(
-                                            width: 3, color: Colors.purple),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text(
+                          padding: const EdgeInsets.all(25.0),
+                          child: SizedBox(
+                              width: ((MediaQuery.of(context).size.width) / 2),
+                              height: 45,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (_formkey.currentState!.validate()) {
+                                    setState(() {
+                                      email = emailcontroller.text;
+                                      password = passwordcontroller.text;
+                                    });
+                                  }
+                                  onLogin();
+                                }, // Defina a função que deseja chamar no toque
+                                child: Center(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.purple,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                          width: 3, color: Colors.purple),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
                                           "LOGIN",
-                                          style: 
-                                          TextStyle(fontSize: 25, color: Colors.white,)
-                                        ),
+                                          style: TextStyle(fontSize: 25, color: Colors.white,)
                                       ),
                                     ),
                                   ),
-                                )))
+                                ),
+                              )),
+                        ),
                       ],
                     )))));
   }
 }
-
-/* Referências:
-
-https://www.arquivodecodigos.com.br/dicas/3761-flutter-aprenda-a-usar-caixas-de-texto-textfield-em-suas-aplicacoes-flutter.html
-https://www.flutterbeads.com/elevated-button-color-in-flutter/
-https://capsistema.com.br/index.php/2022/08/22/borda-do-botao-adicionar-personalizar-no-flutter-guia-definitivo-de-2022/
-https://www.flutterbeads.com/change-textfield-background-color-in-flutter/
-https://pt.stackoverflow.com/questions/463662/flutter-como-alterar-o-tamanho-de-um-textfield-corretamente
-https://www.linkedin.com/pulse/como-colocar-imagem-em-flutter-caroline-souza/?originalSubdomain=pt
-https://docs.flutter.dev/cookbook/navigation/navigation-basics
-
- Tipos de Text:
-decoration: InputDecoration(labelText: "Usuário")
-
-=> Bordas arredondadas
-TextField(
-                  onChanged: (text) {
-                    password = text;
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(60)),
-                      hintText: "Digite sua senha",
-                      labelStyle: TextStyle(
-                        color: Colors.white,
-                      )
-                    ),
-                ),
-*/

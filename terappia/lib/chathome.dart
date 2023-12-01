@@ -371,14 +371,14 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
               ),
               const SizedBox(height: 4),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: AutoSizeText(
-                  "Botão $index",
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.white),
-                  group: autoSizeGroup,
-                ),
-              )
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  /*child: AutoSizeText(
+                    "Botão $index",
+                    maxLines: 1,
+                    style: TextStyle(color: Colors.white),
+                    group: autoSizeGroup,
+                  ),*/
+                )
             ],
           );
         },

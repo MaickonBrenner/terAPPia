@@ -156,7 +156,7 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(231, 254, 255, 1),
+      backgroundColor: Colors.purple,
       body: Container(
         child: Column(
           children: [
@@ -187,7 +187,7 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
                       : Text(
                           "Chat",
                           style: TextStyle(
-                              color: Colors.lightBlueAccent,
+                              color: Colors.white,
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold),
                         ),
@@ -203,7 +203,7 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(20)),
                         child: Icon(
                           Icons.search,
-                          color: Colors.lightBlueAccent,
+                          color: Colors.purple,
                         )),
                   )
                 ],
@@ -216,7 +216,7 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
                   ? MediaQuery.of(context).size.height / 1.19
                   : MediaQuery.of(context).size.height / 100 * 79,
               decoration: BoxDecoration(
-                  color: Colors.lightBlue,
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),

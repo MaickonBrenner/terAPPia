@@ -1,4 +1,3 @@
-import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:terappia/calendar.dart';
 import 'package:terappia/chathome.dart';
@@ -53,19 +52,19 @@ abstract class MenuItems {
           MaterialPageRoute(builder: (context) => chatHome),
         );
         break;
-      case MenuItems.settings:
-        ChatPage chatPage = new ChatPage();
+      case MenuItems.settings: //Configurações
+        /*ChatPage chatPage = new ChatPage();
         Navigator.push(
           context as BuildContext,
           MaterialPageRoute(builder: (context) => chatPage),
           );
-        break;
+        break;*/
       case MenuItems.share:
-        Calendario calendario = new Calendario();
+        /*Calendario calendario = new Calendario();
         Navigator.push(
           context as BuildContext,
           MaterialPageRoute(builder: (context) => calendario),
-        );
+        );*/
         break;
       case MenuItems.logout:
       telaLogin telalogin = new telaLogin();

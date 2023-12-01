@@ -186,12 +186,6 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
       ),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              _showAddEventDialog(_selectedDay);
-            },
-            child: Text("Adicionar Evento"),
-          ),
           TableCalendar(
             calendarFormat: _calendarFormat,
             onFormatChanged: (format) {
@@ -241,7 +235,24 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
                         title: Text(event.toString()),
                       ))
                   .toList(),
-            )
+            ),
+            SizedBox(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                backgroundColor: MaterialStateColor.resolveWith((states) => Colors.purple),
+                shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.circular(5.0), //60.0 (Borda Redonda)
+                side: BorderSide(
+                width: 3, color: Colors.purple)))),
+              onPressed: () {
+                _showAddEventDialog(_selectedDay);
+              },
+              child: Text("Adicionar Evento", selectionColor: Colors.purple,),
+              
+                      ),
+            ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -271,6 +282,7 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
             ],
           );
         },
+        
         backgroundColor: Colors.purple,
         activeIndex: _bottomNavIndex,
         splashColor: Colors.white,
@@ -291,6 +303,19 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
           color: Colors.white,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.purple,
+          child: const Icon(
+            Icons.calendar_month,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            _fabAnimationController.reset();
+            _borderRadiusAnimationController.reset();
+            _borderRadiusAnimationController.forward();
+            _fabAnimationController.forward();
+          },
+        ),
     );
   }
 }

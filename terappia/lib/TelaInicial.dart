@@ -226,7 +226,7 @@ class _HomePageWidgetState extends State<TelaInicial>
           backgroundColor: Colors.purple,
           automaticallyImplyLeading: false,
           title: Text(
-            'Bom dia, Profissional  !',
+            'Bom dia, Profissional!',
             style: TextStyle(
               fontFamily: 'Montserrat',
               color: Colors.white,
@@ -345,7 +345,7 @@ class _HomePageWidgetState extends State<TelaInicial>
                       ListTile(
                         title: Text('Nome do Paciente'),
                         subtitle: Text(
-                          'distância',
+                          'Distância até o paciente: 3 KM',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -360,7 +360,7 @@ class _HomePageWidgetState extends State<TelaInicial>
                           'Nome do Paciente',
                         ),
                         subtitle: Text(
-                          'distância',
+                          'Distância até o paciente: 12 KM',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -375,7 +375,7 @@ class _HomePageWidgetState extends State<TelaInicial>
                           'Nome do Paciente',
                         ),
                         subtitle: Text(
-                          'distância',
+                          'Distância até o paciente: 23 KM',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -390,7 +390,7 @@ class _HomePageWidgetState extends State<TelaInicial>
                           'Nome do Paciente',
                         ),
                         subtitle: Text(
-                          'distância',
+                          'Distância até o paciente: 32 KM',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -403,7 +403,7 @@ class _HomePageWidgetState extends State<TelaInicial>
                       ListTile(
                         title: Text('Nome do Paciente'),
                         subtitle: Text(
-                          'distância',
+                          'Distância até o paciente: 56 KM',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,

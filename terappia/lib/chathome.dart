@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:terappia/LoginProfissional.dart';
 import 'package:terappia/NavigationScreen.dart';
@@ -10,6 +11,8 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/rendering.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'package:terappia/calendar.dart';
+import 'package:terappia/chatpage.dart';
+import 'package:terappia/services/database.dart';
 
 class ChatHome extends StatefulWidget {
   const ChatHome({super.key});
@@ -21,6 +24,40 @@ class ChatHome extends StatefulWidget {
 class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
   final autoSizeGroup = AutoSizeGroup();
   var _bottomNavIndex = 0; //default index of a first screen
+  bool search = false;
+
+  var queryResultSet = [];
+  var tempSearchStore = [];
+
+  iniateSearch(value) {
+    if (value.length == 0) {
+      setState(() {
+        queryResultSet = [];
+        tempSearchStore = [];
+      });
+    }
+    setState(() {
+      search = true;
+    });
+    var capitalizedValue =
+        value.substring(0, 1).toUpperCase() + value.substring(1);
+    if (queryResultSet.isEmpty && value.length == 1) {
+      DatabaseMethods().Search(value).then((QuerySnapshot docs) {
+        for (int i = 0; i < docs.docs.length; ++i) {
+          queryResultSet.add(docs.docs[i].data());
+        }
+      });
+    } else {
+      tempSearchStore = [];
+      queryResultSet.forEach((element) {
+        if (element['Username'].startsWith(capitalizedValue)) {
+          setState(() {
+            tempSearchStore.add(element);
+          });
+        }
+      });
+    }
+  }
 
   late AnimationController _fabAnimationController;
   late AnimationController _borderRadiusAnimationController;
@@ -129,29 +166,55 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Chat",
-                    style: TextStyle(
-                        color: Colors.lightBlueAccent,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.lightBlueAccent,
-                      ))
+                  search
+                      ? Expanded(
+                          child: TextField(
+                          onChanged: (value) {
+                            iniateSearch(value.toUpperCase());
+                          },
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Procurar Usuário',
+                              hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w500)),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500),
+                        ))
+                      : Text(
+                          "Chat",
+                          style: TextStyle(
+                              color: Colors.lightBlueAccent,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                  GestureDetector(
+                    onTap: () {
+                      search = true;
+                      setState(() {});
+                    },
+                    child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.lightBlueAccent,
+                        )),
+                  )
                 ],
               ),
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 100 * 79,
+              height: search
+                  ? MediaQuery.of(context).size.height / 1.19
+                  : MediaQuery.of(context).size.height / 100 * 79,
               decoration: BoxDecoration(
                   color: Colors.lightBlue,
                   borderRadius: BorderRadius.only(
@@ -161,95 +224,118 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
                       bottomRight: Radius.circular(20))),
               child: Column(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(60),
-                          child: Image.asset(
-                            "images/user.png",
-                            height: 70,
-                            width: 70,
-                            fit: BoxFit.cover,
-                          )),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Profissional 1",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.w500),
+                  search
+                      ? ListView(
+                          padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                          primary: false,
+                          shrinkWrap: true,
+                          children: tempSearchStore.map((element) {
+                            return buildResultCard(element);
+                          }).toList())
+                      : Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChatPage()));
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(60),
+                                      child: Image.asset(
+                                        "images/user.png",
+                                        height: 70,
+                                        width: 70,
+                                        fit: BoxFit.cover,
+                                      )),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Profissional 1",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        "Como posso te ajudar?",
+                                        style: TextStyle(
+                                            color: Colors.black45,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
-                            ],
-                          ),
-                          Text(
-                            "Como posso te ajudar?",
-                            style: TextStyle(
-                                color: Colors.black45,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(60),
-                          child: Image.asset(
-                            "images/user.png",
-                            height: 70,
-                            width: 70,
-                            fit: BoxFit.cover,
-                          )),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Profissional 2",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "Olá!",
-                            style: TextStyle(
-                                color: Colors.black45,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                            ),
+                            SizedBox(
+                              height: 30.0,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                    borderRadius: BorderRadius.circular(60),
+                                    child: Image.asset(
+                                      "images/user.png",
+                                      height: 70,
+                                      width: 70,
+                                      fit: BoxFit.cover,
+                                    )),
+                                SizedBox(
+                                  width: 20.0,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Profissional 2",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      "Olá!",
+                                      style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                 ],
               ),
             )
@@ -314,6 +400,38 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
             blurRadius: 12,
             spreadRadius: 0.5,
             color: Colors.white),
+      ),
+    );
+  }
+
+  Widget buildResultCard(data) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: Material(
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          padding: EdgeInsets.all(18),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data["Nome"],
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0),
+                  ),
+                  SizedBox(height: 10.0,),
+                  Text(data["Username"],style: TextStyle(color: Colors.black,fontSize: 18.0,fontWeight: FontWeight.bold),)
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

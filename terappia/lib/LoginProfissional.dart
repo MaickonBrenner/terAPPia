@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:terappia/TelaInicial.dart';
 import 'package:terappia/main.dart';
+import 'package:terappia/services/database.dart';
 import 'package:terappia/telaRegistro.dart';
 
 class telaLogin extends StatelessWidget {
@@ -24,7 +26,10 @@ class telaLoginState extends State<telaLogin1> {
   TelaInicial telaInicial = new TelaInicial();
   telaBotao telabotao = new telaBotao();
   String email = "";
+  String nome = "";
+  String username = "";
   String password = "";
+  String id = "";
 
   TextEditingController emailcontroller = new TextEditingController();
   TextEditingController passwordcontroller = new TextEditingController();
@@ -35,6 +40,13 @@ class telaLoginState extends State<telaLogin1> {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
+QuerySnapshot querySnapshot = await DatabaseMethods().getUserbyemail(email);
+
+nome ="${querySnapshot.docs[0]["Nome"]}";
+username = "${querySnapshot.docs[0]["Username"]}";
+id = querySnapshot.docs[0].id;
+
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => TelaInicial()));
     } on FirebaseAuthException catch (e) {

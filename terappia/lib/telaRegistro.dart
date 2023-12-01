@@ -31,10 +31,15 @@ class _telaRegistroState extends State<telaRegistro> {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         String Id = randomAlphaNumeric(10);
+        String user = emailcontroller.text.replaceAll("@gmail.com", "");
+        String updateusername=user.replaceFirst(user[0], user[0].toUpperCase());
+        String firstletter= user.substring(0,1).toUpperCase();
+
         Map<String, dynamic> userInfoMap = {
           "Nome": namecontroller.text,
           "Email": emailcontroller.text,
-          "Username": emailcontroller.text.replaceAll("@gmail.com", ""),
+          "Username": updateusername.toUpperCase(),
+          "SearchKey": firstletter,
           "Id": Id,
         };
         await DatabaseMethods().addUserDetails(userInfoMap, Id);

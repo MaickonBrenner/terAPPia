@@ -226,7 +226,7 @@ class _HomePageWidgetState extends State<TelaInicial>
           backgroundColor: Colors.purple,
           automaticallyImplyLeading: false,
           title: Text(
-            'Bom dia, Nome!',
+            'Bom dia, Profissional  !',
             style: TextStyle(
               fontFamily: 'Montserrat',
               color: Colors.white,
@@ -343,9 +343,9 @@ class _HomePageWidgetState extends State<TelaInicial>
                     scrollDirection: Axis.vertical,
                     children: [
                       ListTile(
-                        title: Text('Title'),
+                        title: Text('Nome do Paciente'),
                         subtitle: Text(
-                          'Subtitle goes here...',
+                          'distância',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -357,10 +357,10 @@ class _HomePageWidgetState extends State<TelaInicial>
                       ),
                       ListTile(
                         title: Text(
-                          'Title',
+                          'Nome do Paciente',
                         ),
                         subtitle: Text(
-                          'Subtitle goes here...',
+                          'distância',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -372,10 +372,10 @@ class _HomePageWidgetState extends State<TelaInicial>
                       ),
                       ListTile(
                         title: Text(
-                          'Title',
+                          'Nome do Paciente',
                         ),
                         subtitle: Text(
-                          'Subtitle goes here...',
+                          'distância',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -387,10 +387,10 @@ class _HomePageWidgetState extends State<TelaInicial>
                       ),
                       ListTile(
                         title: Text(
-                          'Title',
+                          'Nome do Paciente',
                         ),
                         subtitle: Text(
-                          'Subtitle goes here...',
+                          'distância',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
@@ -401,9 +401,9 @@ class _HomePageWidgetState extends State<TelaInicial>
                         dense: false,
                       ),
                       ListTile(
-                        title: Text('Title'),
+                        title: Text('Nome do Paciente'),
                         subtitle: Text(
-                          'Subtitle goes here...',
+                          'distância',
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,

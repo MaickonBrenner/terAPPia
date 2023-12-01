@@ -71,7 +71,7 @@ class _ChatHomeState extends State<ChatHome> with TickerProviderStateMixin {
     Icons.people,
     Icons.calendar_month,
     Icons.attach_money_rounded,
-    Icons.route,
+    Icons.settings,
   ];
 
   void mudaTela(int index) {

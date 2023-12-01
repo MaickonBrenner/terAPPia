@@ -18,6 +18,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:terappia/NavigationScreen.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +57,7 @@ class _HomePageWidgetState extends State<TelaInicial>
     Icons.chat,
     Icons.calendar_month,
     Icons.attach_money_rounded,
-    Icons.route,
+    Icons.settings,
   ];
 
   @override
@@ -336,8 +337,183 @@ class _HomePageWidgetState extends State<TelaInicial>
                 padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
                 child: Container(
                   width: ((MediaQuery.of(context).size.width) / 100 * 95),
-                  height: ((MediaQuery.of(context).size.height / 100 * 40)),
-                  child: ListView(
+                  //height: ((MediaQuery.of(context).size.height / 100 * 40)),
+                  child: Slidable(
+                        key: const ValueKey(0),
+                        startActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          dismissible: DismissiblePane(onDismissed: () {}),
+                          children: [
+                            SlidableAction(
+                                onPressed: null,
+                                backgroundColor:
+                                    Color.fromARGB(255, 149, 207, 120),
+                                foregroundColor: Colors.white,
+                                icon: Icons.check,
+                                label: "Atendido")
+                          ],
+                        ),
+                        child: ListTile(
+                        title: Text('Nome do Paciente'),
+                        subtitle: Text(
+                          'Distância até o paciente: 3 KM',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                child: Container(
+                  width: ((MediaQuery.of(context).size.width) / 100 * 95),
+                  //height: ((MediaQuery.of(context).size.height / 100 * 40)),
+                  child: Slidable(
+                        key: const ValueKey(0),
+                        startActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          dismissible: DismissiblePane(onDismissed: () {}),
+                          children: [
+                            SlidableAction(
+                                onPressed: null,
+                                backgroundColor:
+                                    Color.fromARGB(255, 149, 207, 120),
+                                foregroundColor: Colors.white,
+                                icon: Icons.check,
+                                label: "Atendido")
+                          ],
+                        ),
+                        child: ListTile(
+                        title: Text('Nome do Paciente'),
+                        subtitle: Text(
+                          'Distância até o paciente: 6.7 KM',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                child: Container(
+                  width: ((MediaQuery.of(context).size.width) / 100 * 95),
+                  //height: ((MediaQuery.of(context).size.height / 100 * 40)),
+                  child: Slidable(
+                        key: const ValueKey(0),
+                        startActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          dismissible: DismissiblePane(onDismissed: () {}),
+                          children: [
+                            SlidableAction(
+                                onPressed: null,
+                                backgroundColor:
+                                    Color.fromARGB(255, 149, 207, 120),
+                                foregroundColor: Colors.white,
+                                icon: Icons.check,
+                                label: "Atendido")
+                          ],
+                        ),
+                        child: ListTile(
+                        title: Text('Nome do Paciente'),
+                        subtitle: Text(
+                          'Distância até o paciente: 9.2 KM',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                child: Container(
+                  width: ((MediaQuery.of(context).size.width) / 100 * 95),
+                  //height: ((MediaQuery.of(context).size.height / 100 * 40)),
+                  child: Slidable(
+                        key: const ValueKey(0),
+                        startActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          dismissible: DismissiblePane(onDismissed: () {}),
+                          children: [
+                            SlidableAction(
+                                onPressed: null,
+                                backgroundColor:
+                                    Color.fromARGB(255, 149, 207, 120),
+                                foregroundColor: Colors.white,
+                                icon: Icons.check,
+                                label: "Atendido")
+                          ],
+                        ),
+                        child: ListTile(
+                        title: Text('Nome do Paciente'),
+                        subtitle: Text(
+                          'Distância até o paciente: 12.1 KM',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 10),
+                child: Container(
+                  width: ((MediaQuery.of(context).size.width) / 100 * 95),
+                  //height: ((MediaQuery.of(context).size.height / 100 * 40)),
+                  child: Slidable(
+                        key: const ValueKey(0),
+                        startActionPane: ActionPane(
+                          motion: const ScrollMotion(),
+                          dismissible: DismissiblePane(onDismissed: () {}),
+                          children: [
+                            SlidableAction(
+                                onPressed: null,
+                                backgroundColor:
+                                    Color.fromARGB(255, 149, 207, 120),
+                                foregroundColor: Colors.white,
+                                icon: Icons.check,
+                                label: "Atendido")
+                          ],
+                        ),
+                        child: ListTile(
+                        title: Text('Nome do Paciente'),
+                        subtitle: Text(
+                          'Distância até o paciente: 12.3 KM',
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.purple,
+                          size: 20,
+                        ),
+                        tileColor: Colors.white,
+                        dense: false,
+                      ),
+                      ),
+                ),
+              ),
+/*ListView(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
                     children: [
@@ -415,7 +591,7 @@ class _HomePageWidgetState extends State<TelaInicial>
                     ],
                   ),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),

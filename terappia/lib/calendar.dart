@@ -52,7 +52,7 @@ class _MyHomePageState extends State<Calendario> with TickerProviderStateMixin {
     Icons.people,
     Icons.chat,
     Icons.attach_money_rounded,
-    Icons.route,
+    Icons.settings,
   ];
   
 

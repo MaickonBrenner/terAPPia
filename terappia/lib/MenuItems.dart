@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:terappia/calendar.dart';
 import 'package:terappia/chathome.dart';
-import 'package:terappia/chatpage.dart';
 import 'LoginProfissional.dart';
 
 class MenuItem {

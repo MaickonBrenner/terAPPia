@@ -53,8 +53,16 @@ dependencies:
   circular_reveal_animation: ^2.0.1
   auto_size_text: ^3.0.0
   flutter_slidable: ^3.0.1
+  flutter_launcher_icons: ^0.12.0
   
-  
+
+flutter_icons:
+  image_path: "images/icon.png"
+  android: "launcher_icon"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "images/icon.png"
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

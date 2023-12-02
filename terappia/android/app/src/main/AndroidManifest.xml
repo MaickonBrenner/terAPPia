@@ -2,12 +2,11 @@
 <manifest 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<uses-permission 
-    android:name="android.permission.ACCESS_COARSE_LOCATION"
-    android:name="android.permission.ACCESS_FINE_LOCATION"
-    android:name="android.permission.READ_PHONE_STATE"
-    android:name="android.permission.READ_EXTERNAL_STORAGE"
-    android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:label="terappia"
         android:name="${applicationName}" 

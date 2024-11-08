@@ -15,10 +15,10 @@ A aplicação foi desenvolvida na linguagem _Dart_ + o SDK _Flutter_ através do
 - [x] Desenvolvimento
 - [x] Elaboração do Projeto + Pitch
 - [x] Criação de Telas no Flutter
-- [ ] Criação de Telas parte 2, (Paciente)
-- [ ] Implementação do Banco de Dados
-- [ ] Etapa Final
-- [ ] Apresentação do Projeto Final
+- [x] Criação de Telas parte 2, (Paciente)
+- [x] Implementação do Banco de Dados
+- [x] Etapa Final
+- [x] Apresentação do Projeto Final
 
 ## Desenvolvedores do Aplicativo
 * Samuel Lucas de Araujo Farias | [GitHub](https://github.com/slucas04)
